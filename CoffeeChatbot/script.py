@@ -1,71 +1,71 @@
-# -*- coding: utf-8 -*-
+from utils import print_message, get_size, order_latte
 
-# Define your functions
+def coffee_bot():
+  print('Welcome to the cafe!')
+  drinks = []
+  order_drink = 'yes'
+  while order_drink == 'yes':
+    size = get_size()  
+    drink_type = get_drink_type()
 
-def print_message():
-  print("I'm sorry, I did not understand your selection. Please enter the corresponding letter for your response.")
+    drink = '{} {}'.format(size, drink_type)
+    print('Alright, that\'s a {}!'.format(drink))
+    drinks.append(drink)
 
+    while True:
+      order_drink = input('Would you like to order another drink? (yes/no)\n')
 
-def order_latte():
-  res = input("And what kind of milk for your latte? \n[a] 2% milk \n[b] Non-fat milk \n[c] Soy milk\n")
-  order = " "
-  if res == "a":
-    order = "Latte"
-  elif res == "b":
-    order = "non-fat latte"
-  elif res == "c":
-    order = "soy latte"
-  else:
-    print_message()
-    return order_latte()
-  return order
+      if order_drink in ['yes', 'no']:
+        break
+      elif order_drink == 'stop':
+        raise SystemExit
+  print('Okay, so I have: ')
+  for drink in drinks:
+    print("- " + drink)
 
+  name = input('Can I get your name please? \n> ')
+  print('Thanks, {}! Your order will be ready shortly.'.format(name))
 
 def get_drink_type():
-  res = input("What type of drink would you like? \n[a] Brewed Coffee \n[b] Mocha \n[c] Latte\n")
-  type_ = " "
-  if res == "a":
-    type_ = "Brewed Coffee"
-  elif res == "b":
-    type_ = "Mocha"
-  elif res == "c":
+  res = input('What type of drink would you like? \n[a] Brewed Coffee \n[b] Mocha \n[c] Latte \n> ')
+
+  if res == 'a':
+    return order_brewed_coffee()
+  elif res == 'b':
+    return order_mocha()
+  elif res == 'c':
     return order_latte()
+  elif res == 'stop':
+        raise SystemExit
   else:
     print_message()
     return get_drink_type()
-  return type_
-
-
-def get_size():
-  res = input('What size drink can I get for you? \n[a] Small \n[b] Medium \n[c] Large \n> ')
-  size = " "
-  if res == "a":
-    size = "Small"
-  elif res == "b":
-    size = "Medium"
-  elif res == "c":
-    size = "Large"
-  else:
-    print_message()
-    return get_size()
-  return size
-
-
-def bye():
-  name = input("Can I get your name please?\n")
-  print("Thanks, " + name + "! Your drink will be ready shortly.")
-
-
-def coffee_bot():
-  print("Welcome to the cafe!")
-  size = get_size()
-  #print(size)
-  drink_type = get_drink_type()
-  #print(drink_type)
-  print("Allright, that's a "+ size + " " + drink_type + "!")
-  return bye()
+  
+# Define new functions here!
+def order_mocha():
+  while True:
+    res = input('Would you like to try our limited-edition peppermint mocha?\n [a] Sure\n [b] Maybe next time!\n')
+    if res == 'a':
+      return 'peppermint mocha'
+    elif res == 'b':
+      return 'mocha'
+    elif res == 'stop':
+      raise SystemExit
+    else:
+      print_message()
+      return get_drink_type()
+def order_brewed_coffee():
+  while True:
+    res = input('What is your chose?\n [a] Classic Style\n [b]Cold Version\n')
+    if res == 'a':
+      return 'Classic Brewed Coffee'
+    elif res == 'b':
+      return 'Cold Brewed'
+    elif res == 'stop':
+      raise SystemExit
+    else:
+      print_message()
+      return get_drink_type() 
   
 
 coffee_bot()
-
-
